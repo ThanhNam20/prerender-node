@@ -19,7 +19,9 @@ async function fetchContent(url) {
 // Function to render HTML using Puppeteer
 async function renderHTML(url, filename) {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      executablePath: '/usr/bin/chromium-browser'
+    });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: "networkidle0" });
     const content = await page.content();
