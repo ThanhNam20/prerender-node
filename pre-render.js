@@ -3,7 +3,7 @@ const axios = require("axios");
 const puppeteer = require("puppeteer");
 
 
-const API_URL = 'http://34.125.106.24/';
+const API_URL = 'https://nam.jamint.online/';
 
 // Function to fetch website content
 async function fetchContent(url) {
@@ -34,7 +34,8 @@ async function renderHTML(url, filename) {
 // Define website URLs and filenames for pre-rendering
 const pagesToRender = [
   { url: `${API_URL}`, filename: "rendered/home.html" },
-  //{ url: `${API_URL}login`, filename: "rendered/login.html" },
+  { url: `${API_URL}login`, filename: "rendered/login.html" },
+  { url: `${API_URL}register`, filename: "rendered/register.html" },
   // Add more pages as needed
 ];
 
