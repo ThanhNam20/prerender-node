@@ -3,13 +3,15 @@ const app = express();
 
 app.get("/", (req, res) => {
 
-  console.log(req, 'req');
+  console.log(req.headers, 'req.headers');
 
   const userAgent = req.headers["user-agent"];
   if (isBot(userAgent)) {
     console.log("Request from a bot:", userAgent);
-    // Handle bot request
-    res.send("Hello, bot!");
+    // Serve the HTML file for bots
+    const filePath = path.resolve(__dirname, 'path/to/your/html/file.html');  // Replace with the actual path to your HTML file
+    res.sendFile(filePath);
+
   } else {
     console.log("Request from a regular user:", userAgent);
     // Handle regular user request
