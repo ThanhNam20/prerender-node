@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
+
+  console.log(req, 'req');
+
   const userAgent = req.headers["user-agent"];
   if (isBot(userAgent)) {
     console.log("Request from a bot:", userAgent);
