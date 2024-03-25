@@ -19,6 +19,10 @@ app.get("/", (req, res) => {
     console.log("Request from a regular user:", userAgent);
     // Handle regular user request
     res.send("Hello, user!");
+
+    const filePath = path.resolve(__dirname, './rendered/home.html');  // Replace with the actual path to your HTML file
+    console.log(filePath);
+    res.sendFile(filePath);
   }
 });
 
