@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 
 app.get("/", (req, res) => {
 
@@ -9,7 +10,8 @@ app.get("/", (req, res) => {
   if (isBot(userAgent)) {
     console.log("Request from a bot:", userAgent);
     // Serve the HTML file for bots
-    const filePath = path.resolve(__dirname, 'path/to/your/html/file.html');  // Replace with the actual path to your HTML file
+    const filePath = path.resolve(__dirname, './rendered/home.html');  // Replace with the actual path to your HTML file
+    console.log(filePath);
     res.sendFile(filePath);
 
   } else {
@@ -35,10 +37,5 @@ function isBot(userAgent) {
     // Add more bot user agents as needed
   ];
   // Check if the user agent matches any known bot user agents
-  return botUserAgents.some((botAgent) => userAgent.includes(botAgent));
+  return botUserAgents.some((botAgent) => userAgent.includes(botAgent.toLowerCase()));
 }
-
-const PORT = process.env.PORT || 9000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
