@@ -29,15 +29,14 @@ function isBot(userAgent) {
     "YandexBot",
     "DuckDuckBot",
     "Baiduspider",
-    "FacebookExternalHit",
+    "facebookexternalhit",
     "Twitterbot",
     "LinkedInBot",
     "Slackbot",
     "TelegramBot",
-    // Add more bot user agents as needed
   ];
   // Check if the user agent matches any known bot user agents
-  return botUserAgents.some((botAgent) => userAgent.includes(botAgent.toLowerCase()));
+  return botUserAgents.some((botAgent) => userAgent.includes(botAgent));
 }
 
 const PORT = process.env.PORT || 9000;
