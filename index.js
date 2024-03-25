@@ -39,3 +39,8 @@ function isBot(userAgent) {
   // Check if the user agent matches any known bot user agents
   return botUserAgents.some((botAgent) => userAgent.includes(botAgent.toLowerCase()));
 }
+
+const PORT = process.env.PORT || 9000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
