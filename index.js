@@ -18,11 +18,17 @@ app.get("/", (req, res) => {
   } else {
     console.log("Request from a regular user:", userAgent);
     // Handle regular user request
-    res.send("Hello, user!");
-
+    // res.send("Hello, user!");
     const filePath = path.resolve(__dirname, './rendered/home.html');  // Replace with the actual path to your HTML file
-    console.log(filePath);
-    res.sendFile(filePath);
+    try {
+      // Send the file only if it exists (assuming error handling)
+      res.sendFile(filePath);
+    } catch (error) {
+      // Handle file not found or other errors here
+      console.error(error);
+      res.status(500).send('Internal Server Error'); // Example error response
+    }
+  
   }
 });
 
