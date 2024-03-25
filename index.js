@@ -25,6 +25,9 @@ app.get("/", (req, res) => {
 
 function isBot(userAgent) {
   const parsedUserAgent = uaParser(userAgent);
+
+  console.log(parsedUserAgent, 'parsedUserAgent');
+
   return parsedUserAgent.device.type === 'bot';
 }
 
