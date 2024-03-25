@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const uaParser = require('ua-parser-js');
 
 app.get("/", (req, res) => {
 
@@ -21,23 +22,12 @@ app.get("/", (req, res) => {
   }
 });
 
+
 function isBot(userAgent) {
-  // Define a list of known bot user agents
-  const botUserAgents = [
-    "Googlebot",
-    "Bingbot",
-    "YandexBot",
-    "DuckDuckBot",
-    "Baiduspider",
-    "facebookexternalhit",
-    "Twitterbot",
-    "LinkedInBot",
-    "Slackbot",
-    "TelegramBot",
-  ];
-  // Check if the user agent matches any known bot user agents
-  return botUserAgents.some((botAgent) => userAgent.includes(botAgent));
+  const parsedUserAgent = uaParser(userAgent);
+  return parsedUserAgent.device.type === 'bot';
 }
+
 
 const PORT = process.env.PORT || 9000;
 app.listen(PORT, () => {
