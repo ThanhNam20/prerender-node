@@ -21,6 +21,7 @@ app.get("/", (req, res) => {
     // res.send("Hello, user!");
     const filePath = path.resolve(__dirname, './rendered/home.html');  // Replace with the actual path to your HTML file
     try {
+console.log(123123123);
       // Send the file only if it exists (assuming error handling)
       res.sendFile(filePath);
     } catch (error) {
