@@ -1,9 +1,8 @@
 const fs = require("fs");
 const axios = require("axios");
 const puppeteer = require("puppeteer");
+const { API_URL } = require("./const.js");
 
-
-const API_URL = 'https://nam.jamint.online/';
 
 // Function to fetch website content
 async function fetchContent(url) {
@@ -50,6 +49,5 @@ async function preRenderPages() {
     }
   }
 }
-
 // Start pre-rendering
 preRenderPages();
