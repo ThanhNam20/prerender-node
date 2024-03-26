@@ -4,13 +4,13 @@ const path = require("path");
 const { BOT_PATTERNS } = require("./const.js");
 const uaParser = require("ua-parser-js");
 
-app.get("/", (req, res) => {
-  console.log(req, "req");
+app.get("/*", (req, res) => {
+  console.log(req.url, "req");
   console.log(req.headers, "req.headers");
   const userAgent = req.headers["user-agent"];
   if (isBot(userAgent)) {
     console.log("Request from a bot:", userAgent);
-    const filePath = path.resolve(__dirname, "./rendered/home.html");
+    const filePath = path.resolve(__dirname, `rendered${req.url}.html`);
     res.sendFile(filePath);
   } else {
     console.log("Request from a regular user:", userAgent);
