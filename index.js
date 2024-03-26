@@ -11,7 +11,16 @@ app.get("/*", (req, res) => {
   if (isBot(userAgent)) {
     console.log("Request from a bot:", userAgent);
     const filePath = path.resolve(__dirname, `rendered${req.url}.html`);
-    res.sendFile(filePath);
+
+    try {
+      if (filePath) {
+        console.log(filePath, "filePath");
+        res.sendFile(filePath);
+      }
+    } catch (error) {
+      console.error("Error sending file:", error);
+      res.send("Error rendering page");
+    }
   } else {
     console.log("Request from a regular user:", userAgent);
     res.send("Hello, World!");
