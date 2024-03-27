@@ -5,21 +5,18 @@ const { BOT_PATTERNS } = require("./const.js");
 const uaParser = require("ua-parser-js");
 
 app.get("/*", (req, res) => {
-  console.log(req.url, "req");
+  console.log(req, "req");
+  console.log(req.url, "req.url");
   console.log(req.headers, "req.headers");
   const userAgent = req.headers["user-agent"];
   if (isBot(userAgent)) {
     console.log("Request from a bot:", userAgent);
     const filePath = path.resolve(__dirname, `rendered${req.url}.html`);
-
     try {
-      if (filePath) {
-        console.log(filePath, "filePath");
-        res.sendFile(filePath);
-      }
+      res.sendFile(filePath);
     } catch (error) {
       console.error("Error sending file:", error);
-      res.send("Error rendering page");
+      res.status(500).send("Internal Server Error");
     }
   } else {
     console.log("Request from a regular user:", userAgent);
