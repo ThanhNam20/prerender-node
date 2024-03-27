@@ -4,7 +4,7 @@ const path = require("path");
 const { BOT_PATTERNS } = require("./const.js");
 const uaParser = require("ua-parser-js");
 
-app.get("/*", (req, res) => {
+app.get("*", (req, res) => {
   console.log(req, "req");
   console.log(req.url, "req.url");
   console.log(req.headers, "req.headers");
