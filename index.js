@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const fs = require("fs");
 const { BOT_PATTERNS } = require("./const.js");
 const uaParser = require("ua-parser-js");
 
