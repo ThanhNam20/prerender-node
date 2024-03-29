@@ -11,9 +11,19 @@ app.get("/*", (req, res) => {
   const userAgent = req.headers["user-agent"];
   if (isBot(userAgent)) {
     console.log("Request from a bot:", userAgent);
-    const filePath = path.resolve(__dirname, `rendered${req.url}.html`);
+    let filePath = "";
+    if (req.url === "/") {
+      filePath = path.resolve(__dirname, `rendered/home.html`);
+    } else {
+      filePath = path.resolve(__dirname, `rendered${req.url}.html`);
+    }
     try {
-      res.sendFile(filePath);
+      if(filePath !== "") {
+        console.log(filePath, "filePath");
+        res.sendFile(filePath);
+      } else {
+        res.status(404).send("Not found html file");
+      }
     } catch (error) {
       console.error("Error sending file:", error);
       res.status(500).send("Internal Server Error");
