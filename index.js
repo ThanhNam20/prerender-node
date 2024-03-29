@@ -4,7 +4,7 @@ const path = require("path");
 const { BOT_PATTERNS } = require("./const.js");
 const uaParser = require("ua-parser-js");
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   console.log(req, "req");
   console.log(req.url, "req.url");
   console.log(req.headers, "req.headers");
@@ -12,6 +12,46 @@ app.get("*", (req, res) => {
   if (isBot(userAgent)) {
     console.log("Request from a bot:", userAgent);
     const filePath = path.resolve(__dirname, `rendered${req.url}.html`);
+    try {
+      res.sendFile(filePath);
+    } catch (error) {
+      console.error("Error sending file:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  } else {
+    console.log("Request from a regular user:", userAgent);
+    res.send("Hello, World!");
+  }
+});
+
+app.get("/login", (req, res) => {
+  console.log(req, "req");
+  console.log(req.url, "req.url");
+  console.log(req.headers, "req.headers");
+  const userAgent = req.headers["user-agent"];
+  if (isBot(userAgent)) {
+    console.log("Request from a bot:", userAgent);
+    const filePath = path.resolve(__dirname, `rendered/login.html`);
+    try {
+      res.sendFile(filePath);
+    } catch (error) {
+      console.error("Error sending file:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  } else {
+    console.log("Request from a regular user:", userAgent);
+    res.send("Hello, World!");
+  }
+});
+
+app.get("/register", (req, res) => {
+  console.log(req, "req");
+  console.log(req.url, "req.url");
+  console.log(req.headers, "req.headers");
+  const userAgent = req.headers["user-agent"];
+  if (isBot(userAgent)) {
+    console.log("Request from a bot:", userAgent);
+    const filePath = path.resolve(__dirname, `rendered/login.html`);
     try {
       res.sendFile(filePath);
     } catch (error) {
