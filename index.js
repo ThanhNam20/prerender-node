@@ -18,14 +18,17 @@ app.get("/*", (req, res) => {
       filePath = path.resolve(__dirname, `rendered${req.url}.html`);
     }
     try {
-      if(filePath !== "") {
-        console.log(filePath, "filePath");
+      // Check if the file exists synchronously
+      if (fs.existsSync(filePath)) {
+        console.log(`${filePath} exists`);
         res.sendFile(filePath);
       } else {
+        console.error(`${filePath} does not exist`);
         res.status(404).send("Not found html file");
       }
+
     } catch (error) {
-      console.error("Error sending file:", error);
+      console.error("Error", error);
       res.status(500).send("Internal Server Error");
     }
   } else {
