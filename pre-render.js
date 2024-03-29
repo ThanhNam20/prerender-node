@@ -3,7 +3,6 @@ const axios = require("axios");
 const puppeteer = require("puppeteer");
 const { API_URL } = require("./const.js");
 
-
 // Function to fetch website content
 async function fetchContent(url) {
   try {
@@ -19,12 +18,22 @@ async function fetchContent(url) {
 async function renderHTML(url, filename) {
   try {
     const browser = await puppeteer.launch({
-      executablePath: '/usr/bin/chromium-browser'
+      executablePath: "/usr/bin/chromium-browser",
     });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: "networkidle0" });
-    const content = await page.content();
+    let content = await page.content();
     await browser.close();
+
+    content = content.replace(/ class="[^"]*"/g, "");
+    // Remove all script tags
+    content = content.replace(
+      /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+      ""
+    );
+    // Remove all svg tags
+    content = content.replace(/<svg\b[^<]*(?:(?!<\/svg>)<[^<]*)*<\/svg>/gi, "");
+
     fs.writeFileSync(filename, content);
     console.log(`Rendered ${url} to ${filename}`);
   } catch (error) {
